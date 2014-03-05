@@ -1,0 +1,24 @@
+[
+	{ 
+		"title": "{pre-load}",
+		"libs" : {
+			"js": [
+				"index.js"
+			],
+			"css": [
+				"index.css"
+			]
+		}
+	},
+	{ 
+		"title": "{post-load}",
+		"libs" : {
+			"js": [
+				"index.js"
+			],
+			"css": [
+				"index.css"
+			]
+		}
+	}
+]
