@@ -3,7 +3,7 @@
 		"title": "{pre-load}",
 		"libs" : {
 			"js": [
-				"index.js"
+				"jquery-2.0.3.js"
 			],
 			"css": [
 				"index.css"
@@ -14,10 +14,10 @@
 		"title": "{post-load}",
 		"libs" : {
 			"js": [
+				"blogengine.js",
 				"index.js"
 			],
 			"css": [
-				"index.css"
 			]
 		}
 	}
