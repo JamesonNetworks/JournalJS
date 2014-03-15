@@ -25,7 +25,7 @@ jsonFiles.prototype.entries = function(current_count) {
 		var jsonEntry = JSON.parse(entry);
 		entries.push(jsonEntry);
 	}
-	return entries;
+	return entries.reverse();
 }
 
 jsonFiles.prototype.get_entry = function(entry) {

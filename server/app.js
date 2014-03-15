@@ -53,11 +53,7 @@ router.use('/list', function(req, res) {
 		'cache-control':'no-cache'
 	});
 
-	var responseObj = {};
-	responseObj.list = JSON.stringify(list);
-	responseObj.count = entries.count;
-
-	res.write(JSON.stringify(responseObj));
+	res.write(JSON.stringify(list));
 	res.end();
 });
 router.listen(conf.port);

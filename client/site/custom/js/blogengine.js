@@ -3,8 +3,11 @@
 var blogEngine = {
 
 	VERSION: 0.1,
-	blogPosts: [],
-	currentBlogPost: {},
+	content : {
+		blogPosts: [],
+		currentBlogPost: {}
+	},
+	EventHandler: conf.eventhandler,
 
 	populateBlogPosts: function() {
 		$.ajax({
@@ -12,8 +15,9 @@ var blogEngine = {
 			cache: false,
 			dataType: 'json'
 		}).done(function(data, status, jqXHR) {
-			blogEngine.blogPosts = data;
+			blogEngine.content.blogPosts = data;
 			$('#' + conf.eventhandler).trigger('BlogListGot');
+			blogEngine.getBlogPost(data[0].date + '.json');
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			$('#' + conf.eventhandler).trigger('BlogEngineError');
 		});
@@ -25,10 +29,10 @@ var blogEngine = {
 			cache: false,
 			dataType: 'json'
 		}).done(function(data, status, jqXHR) {
-			currentBlogPost = data;
+			blogEngine.content.currentBlogPost = data;
 			$('#' + conf.eventhandler).trigger('BlogEntryGot');
 		}).fail(function(jqXHR, textStatus, errorThrown) {
-			$('#' + conf.eventhandler).trigger('BlogEntryError');
+			$('#' + conf.eventhandler).trigger('BlogEngineError');
 		});
 	}
 }

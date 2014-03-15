@@ -1,0 +1,38 @@
+<script type="text-html" id="blog-entry-list-template">
+{{#blogPosts}}
+	<button type="button" class="btn btn-default">{{title}}</button>
+{{/blogPosts}}
+{{^blogPosts}}
+	No posts were found.
+{{/blogPosts}}
+</script>
+
+<script type="text-html" id="blog-entry-template">
+<div class="post-article">
+	<div class="post-title">{{title}}</div>
+	<div class="post-field">
+		<div class="subtitle">{{subtitle}}</div>
+	</div>
+	<div class="post-article">
+	{{#markdown.sections}}
+		<h3>{{section_title}}</h3>
+		{{#contents}}
+			<p>{{paragraph}}</p>
+		{{/contents}}
+		<hr class="section-divider">
+	{{/markdown.sections}}
+	{{^markdown.sections}}
+	  <h3>This post contained no content.</h3>
+	{{/markdown.sections}}
+	</div>
+</div>
+</script>
+
+<script type="text/html" id="message_template">
+<div id="message">
+	<div class="alert fade in alert-{{type}} alert-dismissable">
+		{{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	</div>
+</div>
+</script>
