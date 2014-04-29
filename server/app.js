@@ -2,6 +2,7 @@
 // the parameters for each request.
 var express = require('express'),
 	conf = require('./conf.json'),
+	uuid = require('node-uuid'),
 	adapter = require('./bin/' + conf.adapter);
 
 var router = express();
@@ -28,7 +29,7 @@ router.all("/*", function(req, res, next) {
 		entries = adapter.entries();
 		for(var i = 0; i < entries.length; i++) {
 			console.log(JSON.stringify(entries));
-			list.push({ 'title': entries[i].title, 'date': entries[i].date });
+			list.push({ 'title': entries[i].title, 'date': entries[i].date, 'uuid': uuid.v1() });
 		}
 	}
 

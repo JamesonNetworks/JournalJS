@@ -6,6 +6,7 @@
 				"jquery-2.0.3.js",
 				"bootstrap-3.0.3.js",
 				"mustache.js",
+				"underscore.js",
 				"blogengine.js"
 			],
 			"css": [

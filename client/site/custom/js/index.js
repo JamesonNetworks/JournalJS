@@ -5,7 +5,7 @@ function blogListGot() {
 	$('#sidenav-btn-container').append(html);
 }
 
-function blogEntryGot() {
+function blogPostGot() {
 	var template = $('#blog-entry-template').html();
 	var html = Mustache.to_html(template, blogEngine.content.currentBlogPost);
 	$('#blog-entry').empty();
@@ -48,11 +48,19 @@ function blogEngineError() {
 	showDangerMessage('An error has occured');
 }
 
+function blogEntryClick(event) {
+	blogEngine.getBlogPost(this.id + '.json');
+}
+
 window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogListGot', blogListGot);
-	$('#' + blogEngine.EventHandler).on('BlogEntryGot', blogEntryGot);
+	$('#' + blogEngine.EventHandler).on('BlogPostGot', blogPostGot);
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
 
-	blogEngine.populateBlogPosts();
+	var callback = function() {
+		$('.article-button').click(blogEntryClick);
+	}
+
+	blogEngine.populateBlogPosts(callback);
 }
 

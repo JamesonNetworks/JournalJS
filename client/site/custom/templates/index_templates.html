@@ -1,6 +1,6 @@
 <script type="text-html" id="blog-entry-list-template">
 {{#blogPosts}}
-	<button type="button" class="btn btn-default">{{title}}</button>
+	<button type="button" id="{{date}}" class="btn btn-default article-button">{{title}}</button>
 {{/blogPosts}}
 {{^blogPosts}}
 	No posts were found.
