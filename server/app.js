@@ -28,7 +28,7 @@ router.all("/*", function(req, res, next) {
 		current_posts_count = new_posts_count;
 		entries = adapter.entries();
 		for(var i = 0; i < entries.length; i++) {
-			console.log(JSON.stringify(entries));
+			//console.log(JSON.stringify(entries));
 			list.push({ 'title': entries[i].title, 'date': entries[i].date, 'uuid': uuid.v1() });
 		}
 	}

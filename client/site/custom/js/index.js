@@ -1,8 +1,7 @@
 function blogListGot() {
-	var template = $('#blog-entry-list-template').html();
+	var template = $('#menu-template').html();
 	var html = Mustache.to_html(template, blogEngine.content);
-	
-	$('#sidenav-btn-container').append(html);
+	$('#menu-placeholder').append(html);
 }
 
 function blogPostGot() {
@@ -10,6 +9,8 @@ function blogPostGot() {
 	var html = Mustache.to_html(template, blogEngine.content.currentBlogPost);
 	$('#blog-entry').empty();
 	$('#blog-entry').append(html);
+	$('.article-link').removeClass('active');
+	$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
 }
 
 // Messaging functions
@@ -58,7 +59,18 @@ window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
 
 	var callback = function() {
-		$('.article-button').click(blogEntryClick);
+		$('.article-link').click(blogEntryClick);
+		$('#menuEntryList').hide();
+
+	    $('#menu').hover(
+			function(){
+				$('#menuEntryList').stop().slideDown('slow');
+			},
+			function(){
+				$('#menuEntryList').stop().slideUp('slow');   
+			}
+	    );
+
 	}
 
 	blogEngine.populateBlogPosts(callback);

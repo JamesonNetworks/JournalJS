@@ -7,26 +7,26 @@ if(process.env.NODE_ENVIRONMENT='dev') {
 	var spawn = require('child_process').spawn;
 
     child = spawn('nirodha', ['-s', '../site']);
-	child.stdout.on('data', function (data) { console.log(data.toString()); });
-	child.stderr.on('data', function (data) { console.log(data.toString()); });
-	child.on('error', function(err) { console.log(err); console.log(arguments); });
+	child.stdout.on('data', function (data) { process.stdout.write(data.toString()); });
+	child.stderr.on('data', function (data) { process.stdout.write(data.toString()); });
+	child.on('error', function(err) { process.stdout.write(err); process.stdout.write(arguments); });
 
 	// var nirodha = function() {
-	//    console.log("Nirodha() start");
+	//    process.stdout.write("Nirodha() start");
 	//    debugger;
 	//    exec('nirodha -s ../site', function(err, data, stderr) {  
 	//    		debugger;
-	//         console.log(err);
-	//         console.log(data.toString());                       
+	//         process.stdout.write(err);
+	//         process.stdout.write(data.toString());                       
 	//     });  
 	// }
 	// nirodha();
 }
 else {
     child = spawn('nirodha', ['-d', '../site/index']);
-	child.stdout.on('data', function (data) { console.log(data.toString()); });
-	child.stderr.on('data', function (data) { console.log(data.toString()); });
-	child.on('error', function(err) { console.log(err); console.log(arguments); });
+	child.stdout.on('data', function (data) { process.stdout.write(data.toString()); });
+	child.stderr.on('data', function (data) { process.stdout.write(data.toString()); });
+	child.on('error', function(err) { process.stdout.write(err); process.stdout.write(arguments); });
 
 	var express = require('express');
 	var router = expres

@@ -1,12 +1,3 @@
-<script type="text-html" id="blog-entry-list-template">
-{{#blogPosts}}
-	<button type="button" id="{{date}}" class="btn btn-default article-button">{{title}}</button>
-{{/blogPosts}}
-{{^blogPosts}}
-	No posts were found.
-{{/blogPosts}}
-</script>
-
 <script type="text-html" id="blog-entry-template">
 <div class="post-article">
 	<div class="post-title">{{title}}</div>
@@ -30,11 +21,38 @@
 </div>
 </script>
 
-<script type="text/html" id="message_template">
+<script type="text/html" id="message-template">
 <div id="message">
 	<div class="alert fade in alert-{{type}} alert-dismissable">
 		{{message}}
 		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	</div>
+</div>
+</script>
+
+<script type="text/html" id="menu-template">
+<div id="menu">
+	<div class="row site-header">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-2">
+			<button class="btn btn-default dropdown-toggle">Read other articles</button>
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<ul id="menuEntryList" class="nav nav-pills nav-stacked">
+				{{#blogPosts}}
+				<li id="{{date}}" class="article-link "><a href="#">{{title}}</a></li>
+				{{/blogPosts}}
+			</ul>
+		</div>
+		<div class="col-md-3">
+		</div>
 	</div>
 </div>
 </script>

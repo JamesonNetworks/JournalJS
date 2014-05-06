@@ -17,7 +17,6 @@ html, html a {
 	font-size: 50px;
 	line-height: 1.1;
 	margin-bottom: 8px;
-	margin-top: 80px;
 	margin-left: 30px;
 }
 
@@ -72,11 +71,14 @@ html, html a {
 	width: 20%;
 }
 
-.sidenav-container {
-	width:100%;
-	margin-top:80px;
-}
-
 .btn-group-vertical {
 	display: block; 
+}
+
+.site-header {
+	padding: 20px 15px 15px;
+}
+
+.article-link {
+	padding: 5px;
 }
