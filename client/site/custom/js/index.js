@@ -2,15 +2,31 @@ function blogListGot() {
 	var template = $('#menu-template').html();
 	var html = Mustache.to_html(template, blogEngine.content);
 	$('#menu-placeholder').append(html);
+	$('.article-link').click(blogEntryClick);
+	$('#menuEntryList').hide();
+
+    $('#menu').hover(
+		function(){
+			$('#menuEntryList').stop().slideDown('slow');
+		},
+		function(){
+			setTimeout(function() {
+				$('#menuEntryList').stop().slideUp('slow');   
+			}, 4000);
+		}
+    );
 }
 
 function blogPostGot() {
 	var template = $('#blog-entry-template').html();
 	var html = Mustache.to_html(template, blogEngine.content.currentBlogPost);
-	$('#blog-entry').empty();
-	$('#blog-entry').append(html);
-	$('.article-link').removeClass('active');
-	$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
+	$('#blog-entry').fadeOut(function() {
+		$('#blog-entry').empty();
+		$('#blog-entry').append(html);
+		$('.article-link').removeClass('active');
+		$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
+		$('#blog-entry').fadeIn();
+	});
 }
 
 // Messaging functions
@@ -58,21 +74,7 @@ window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogPostGot', blogPostGot);
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
 
-	var callback = function() {
-		$('.article-link').click(blogEntryClick);
-		$('#menuEntryList').hide();
-
-	    $('#menu').hover(
-			function(){
-				$('#menuEntryList').stop().slideDown('slow');
-			},
-			function(){
-				$('#menuEntryList').stop().slideUp('slow');   
-			}
-	    );
-
-	}
-
-	blogEngine.populateBlogPosts(callback);
+	$('#blog-entry').hide();
+	blogEngine.populateBlogPosts();
 }
 
