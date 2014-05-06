@@ -32,7 +32,7 @@ function blogPostGot() {
 // Messaging functions
 function showMessage (message, type) {
 	var msgcnt = { "message": message, "type": type };
-	var template = $('#message_template').html();
+	var template = $('#message-template').html();
 	var html = Mustache.to_html(template, msgcnt);
 	$('#messages').slideUp(function() {
 		$('#messages').empty();
