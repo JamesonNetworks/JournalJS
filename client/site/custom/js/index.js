@@ -5,7 +5,7 @@ function blogListGot() {
 	$('.article-link').click(blogEntryClick);
 	$('#menuEntryList').hide();
 
-    $('#menu').hover(
+    $('#menuHoverToggle').hover(
 		function(){
 			$('#menuEntryList').stop().slideDown('slow');
 		},
