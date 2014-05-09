@@ -2,18 +2,98 @@
 <html>
 <head>
 
+<script type="text/javascript" src="conf.js"></script>
 <link rel="stylesheet" href="/css/index-pre-load.css">
 <script type="text/javascript" src="/js/index-pre-load.js"></script>
 
 </head>
 <body>
 
-<h1>My First Heading</h1>
+<div class="container">
 
-<p>My first paragraph.</p>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="messages"></div>
+		</div>
+	</div>
+
+	<div id="menu-placeholder"></div>
+
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+
+		<div class="col-md-6">
+			<div id="blog-entry">
+			</div>
+		</div>
+
+		<div class="col-md-3">
+		</div>
+	</div>
+</div>
+
+<div id="blogEventHandler"></div>
 
 </body>
+<script type="text-html" id="blog-entry-template">
+<div class="post-article">
+	<div class="post-title">{{title}}</div>
+	<div class="post-field">
+		<div class="subtitle">{{subtitle}}</div>
+	</div>
+	<div class="post-article">
+	{{#markdown.sections}}
+		<h3>{{section_title}}</h3>
+		{{#contents}}
+		<div class="post-content">
+			{{paragraph}}
+		</div>
+		{{/contents}}
+		<hr class="section-divider">
+	{{/markdown.sections}}
+	{{^markdown.sections}}
+	  <h3>This post contained no content.</h3>
+	{{/markdown.sections}}
+	</div>
+</div>
+</script>
 
+<script type="text/html" id="message-template">
+<div id="message">
+	<div class="alert fade in alert-{{type}} alert-dismissable">
+		{{message}}
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	</div>
+</div>
+</script>
+
+<script type="text/html" id="menu-template">
+<div id="menu">
+	<div class="row site-header">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-2">
+			<button id="menuHoverToggle" class="btn btn-default dropdown-toggle">See other articles by me</button>
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<ul id="menuEntryList" class="nav nav-pills nav-stacked">
+				{{#blogPosts}}
+				<li id="{{date}}" class="article-link "><a href="#">{{title}}</a></li>
+				{{/blogPosts}}
+			</ul>
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+</div>
+</script>
 <link rel="stylesheet" href="/css/index-post-load.css">
 <script type="text/javascript" src="/js/index-post-load.js"></script>
 
