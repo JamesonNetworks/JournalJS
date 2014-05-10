@@ -17,9 +17,54 @@ function blogListGot() {
     );
 }
 
+function buildBlogPostHtml(post) {
+	finalHtml = '';
+
+	// Get the templates
+	var template = $('#blog-entry-template').html();
+	var sectionHeaderTemplate = $('#section-header').html();
+	var sectionContentParagraphTemplate= $('#section-content-paragraph').html();
+	var sectionContentCodeTemplate = $('#section-content-code').html();
+	var sectionContentQuoteTemplate = $('#section-content-quote').html();
+
+	// Build a header object and start rendering the article
+	headerObject = {};
+	headerObject.title = post.title;
+	headerObject.subtitle = post.subtitle
+
+	finalHtml = Mustache.to_html(template, headerObject);
+
+	// Iterate through the markdown and add sections as appropriate
+
+	sections = post.markdown.sections;
+
+	for(var i = 0; i < sections.length; i++) {
+		var section = sections[i];
+		finalHtml += Mustache.to_html(sectionHeaderTemplate, section);
+		for(var k = 0; k < section.contents.length; k++) {
+			var content = section.contents[k];
+			switch(content.type) {
+				case 'paragraph':
+					finalHtml += Mustache.to_html(sectionContentParagraphTemplate, content);
+					break;
+				case 'code':
+					finalHtml += Mustache.to_html(sectionContentCodeTemplate, content);
+					break;
+				case 'picture':
+					finalHtml += Mustache.to_html(sectionContentQuoteTemplate, content);
+					break;
+				default:
+			}
+		}
+	}
+
+	return finalHtml;
+}
+
 function blogPostGot() {
 	var template = $('#blog-entry-template').html();
-	var html = Mustache.to_html(template, blogEngine.content.currentBlogPost);
+	var html = buildBlogPostHtml(blogEngine.content.currentBlogPost);
+
 	$('#blog-entry').fadeOut(function() {
 		$('#blog-entry').empty();
 		$('#blog-entry').append(html);

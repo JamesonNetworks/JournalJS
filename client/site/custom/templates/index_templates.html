@@ -4,19 +4,33 @@
 	<div class="post-field">
 		<div class="subtitle">{{subtitle}}</div>
 	</div>
+</script>
+
+<script type="text-html" id="section-header">
+	<hr class="section-divider">
 	<div class="post-article">
-	{{#markdown.sections}}
-		<h3>{{section_title}}</h3>
-		{{#contents}}
-		<div class="post-content">
-			{{paragraph}}
-		</div>
-		{{/contents}}
-		<hr class="section-divider">
-	{{/markdown.sections}}
-	{{^markdown.sections}}
-	  <h3>This post contained no content.</h3>
-	{{/markdown.sections}}
+		<h3>{{title}}</h3>
+</script>
+
+<script type="text-html" id="section-content-paragraph">
+	<div class="post-content">
+		{{content}}
+	</div>
+</script>
+
+<script type="text-html" id="section-content-code">
+	<pre>
+		{{content}}
+	</pre>
+</script>
+
+<script type="text-html" id="section-content-quote">
+	<div class="post-content quote">
+		{{content}}
+	</div>
+</script>
+
+<script type="text-html" id="section-content-footer">
 	</div>
 </div>
 </script>
