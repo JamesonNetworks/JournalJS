@@ -12,7 +12,7 @@ function blogListGot() {
 		function(){
 			setTimeout(function() {
 				$('#menuEntryList').stop().slideUp('slow');   
-			}, 4000);
+			}, 2000);
 		}
     );
 }
