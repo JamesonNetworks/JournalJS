@@ -68,6 +68,7 @@ function blogPostGot() {
 	$('#blog-entry').fadeOut(function() {
 		$('#blog-entry').empty();
 		$('#blog-entry').append(html);
+		prettyPrint();
 		$('.article-link').removeClass('active');
 		$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
 		$('#blog-entry').fadeIn();

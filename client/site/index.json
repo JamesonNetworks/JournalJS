@@ -7,11 +7,14 @@
 				"bootstrap-3.0.3.js",
 				"mustache.js",
 				"underscore.js",
-				"blogengine.js"
+				"blogengine.js",
+				"prettify.js",
+				"run_prettify.js"
 			],
 			"css": [
 				"bootstrap-3.0.3.css",
-				"index.css"
+				"index.css",
+				"prettify.css"
 			]
 		}
 	},

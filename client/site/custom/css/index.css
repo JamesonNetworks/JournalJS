@@ -4,6 +4,13 @@ html, html a {
     text-shadow: 1px 1px 1px rgba(0,0,0,0.004);
 }
 
+pre {
+	overflow: scroll;
+	word-break: normal;
+	word-wrap: normal;
+	white-space: invalid;
+}
+
 .post-article {
 	vertical-align: center;
 }
