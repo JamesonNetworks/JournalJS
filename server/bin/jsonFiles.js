@@ -24,7 +24,7 @@ jsonFiles.prototype.entries = function(current_count) {
 		if(JSON.stringify(files[i]).indexOf('.json') > 0) {
 			var entry = fs.readFileSync('./' + conf.entries + '/' + files[i], 'utf-8');
 			var jsonEntry = JSON.parse(entry);
-			console.log(JSON.stringify(jsonEntry));
+			//console.log(JSON.stringify(jsonEntry));
 			if(jsonEntry.title !== 'template') {
 				entries.push(jsonEntry);			
 			}			
