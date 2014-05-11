@@ -9,6 +9,7 @@ pre {
 	word-break: normal;
 	word-wrap: normal;
 	white-space: invalid;
+	display: inline-block;
 }
 
 .post-article {
@@ -48,6 +49,7 @@ pre {
 	font-size: 22px;
 	font-style: normal;
 	font-weight: normal;
+	text-indent:50px;
 }
 
 .post-article h3 {
@@ -89,4 +91,8 @@ pre {
 
 .article-link {
 	padding: 5px;
+}
+
+.footer-spacer {
+	height:150px;
 }
