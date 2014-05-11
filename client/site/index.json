@@ -8,6 +8,7 @@
 				"mustache.js",
 				"underscore.js",
 				"blogengine.js",
+				"jquery.linkify.js",
 				"prettify.js",
 				"run_prettify.js"
 			],
