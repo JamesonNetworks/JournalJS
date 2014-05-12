@@ -1,20 +1,8 @@
 function blogListGot() {
 	var template = $('#menu-template').html();
 	var html = Mustache.to_html(template, blogEngine.content);
-	$('#menu-placeholder').append(html);
+	$('#modalContainer').append(html);
 	$('.article-link').click(blogEntryClick);
-	$('#menuEntryList').hide();
-
-    $('#menuHoverToggle').hover(
-		function(){
-			$('#menuEntryList').stop().slideDown('slow');
-		},
-		function(){
-			setTimeout(function() {
-				$('#menuEntryList').stop().slideUp('slow');   
-			}, 2000);
-		}
-    );
 }
 
 function buildBlogPostHtml(post) {
@@ -73,6 +61,9 @@ function blogPostGot() {
 		$('.article-link').removeClass('active');
 		$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
 		$('#blog-entry').fadeIn();
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();		
+		});
 	});
 }
 
@@ -124,4 +115,78 @@ window.onload = function() {
 	$('#blog-entry').hide();
 	blogEngine.populateBlogPosts();
 }
+
+$(document).ready(function() {	
+
+	//select all the a tag with name equal to modal
+	$('#menuHoverToggle').click(function(e) {
+		//Cancel the link behavior
+		e.preventDefault();
+		
+		var id = '#dialog';
+	
+		//Get the screen height and width
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+	
+		//Set heigth and width to mask to fill up the whole screen
+		$('#mask').css({'width':maskWidth,'height':maskHeight});
+		
+		//transition effect		
+		$('#mask').fadeIn(1000);	
+		$('#mask').fadeTo("slow",0.8);	
+	
+		//Get the window height and width
+		var winH = $(window).height();
+		var winW = $(window).width();
+              
+		//Set the popup window to center
+		$(id).css('top',  winH/2-$(id).height()/2);
+		$(id).css('left', winW/2-$(id).width()/2);
+	
+		//transition effect
+		$(id).fadeIn(2000); 
+	
+	});
+	
+	//if close button is clicked
+	$('.window .close').click(function (e) {
+		//Cancel the link behavior
+		e.preventDefault();
+		
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();
+		});	
+
+	});		
+	
+	//if mask is clicked
+	$('#mask').click(function () {
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();
+		});
+	});			
+
+	$(window).resize(function () {
+	 
+ 		var box = $('#modalContainer .window');
+ 
+        //Get the screen height and width
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+      
+        //Set height and width to mask to fill up the whole screen
+        $('#mask').css({'width':maskWidth,'height':maskHeight});
+               
+        //Get the window height and width
+        var winH = $(window).height();
+        var winW = $(window).width();
+
+        //Set the popup window to center
+        box.css('top',  winH/2 - box.height()/2);
+        box.css('left', winW/2 - box.width()/2);
+	 
+	});
+	
+});
 
