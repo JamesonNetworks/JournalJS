@@ -62,7 +62,8 @@ function blogPostGot() {
 		$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
 		$('#blog-entry').fadeIn();
 		$('.window').fadeOut(function() {
-			$('#mask').fadeOut();		
+			$('#mask').fadeOut();
+			$('#modalContainer').trigger('hideModal', {});
 		});
 	});
 }
@@ -118,6 +119,13 @@ window.onload = function() {
 
 $(document).ready(function() {	
 
+	// Attaching to the displaying of modal to block scrolling
+	$('#modalContainer').on('showModal', function () {
+		$('body').addClass('modal-open');
+	}).on('hideModal', function () {
+		$('body').removeClass('modal-open');
+	});
+
 	//select all the a tag with name equal to modal
 	$('#menuHoverToggle').click(function(e) {
 		//Cancel the link behavior
@@ -146,7 +154,7 @@ $(document).ready(function() {
 	
 		//transition effect
 		$(id).fadeIn(2000); 
-	
+		$('#modalContainer').trigger('showModal', {});
 	});
 	
 	//if close button is clicked
@@ -156,6 +164,7 @@ $(document).ready(function() {
 		
 		$('.window').fadeOut(function() {
 			$('#mask').fadeOut();
+			$('#modalContainer').trigger('hideModal', {});
 		});	
 
 	});		
@@ -164,6 +173,7 @@ $(document).ready(function() {
 	$('#mask').click(function () {
 		$('.window').fadeOut(function() {
 			$('#mask').fadeOut();
+			$('#modalContainer').trigger('hideModal', {});
 		});
 	});			
 

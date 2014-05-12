@@ -12,6 +12,10 @@ pre {
 	display: inline-block;
 }
 
+body.modal-open {
+    overflow: hidden;
+}
+
 .post-article {
 	vertical-align: center;
 }
