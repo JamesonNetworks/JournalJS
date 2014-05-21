@@ -12,6 +12,10 @@ pre {
 	display: inline-block;
 }
 
+img {
+	padding: 5px;
+}
+
 body.modal-open {
     overflow: hidden;
 }

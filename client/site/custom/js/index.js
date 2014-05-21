@@ -32,6 +32,7 @@ function buildBlogPostHtml(post) {
 	var sectionContentParagraphTemplate= $('#section-content-paragraph').html();
 	var sectionContentCodeTemplate = $('#section-content-code').html();
 	var sectionContentQuoteTemplate = $('#section-content-quote').html();
+	var sectionContentPictureTemplate = $('#section-content-picture').html();
 
 	// Build a header object and start rendering the article
 	headerObject = {};
@@ -56,8 +57,14 @@ function buildBlogPostHtml(post) {
 				case 'code':
 					finalHtml += Mustache.to_html(sectionContentCodeTemplate, content);
 					break;
-				case 'picture':
+				case 'quote':
 					finalHtml += Mustache.to_html(sectionContentQuoteTemplate, content);
+					break;
+				case 'picture':
+					var picture = {};
+					picture.url = conf.blogserver + '/' + post.date + '_' + content.id + '.' + content.fileType;
+					picture.alttext = content.altText;
+					finalHtml += Mustache.to_html(sectionContentPictureTemplate, picture);
 					break;
 				default:
 			}
