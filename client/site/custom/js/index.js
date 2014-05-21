@@ -182,7 +182,7 @@ $(document).ready(function() {
 				break;
 			case 'sm':
 			case 'xs':
-				var menuCopy = $('#menuEntryList').clone(true);
+				var menuCopy = $('#menuEntryList').clone();
 				$('#blog-entry').fadeOut(function() {
 					var menuCopy = $('#menuEntryList').clone();
 					$('#menuOnMobile').append(menuCopy);
