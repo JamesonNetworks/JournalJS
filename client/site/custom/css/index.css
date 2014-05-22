@@ -89,6 +89,27 @@ body.modal-open {
 	width: 20%;
 }
 
+.quote {
+	font-family: "freight-text-pro",Georgia,Cambria,"Times New Roman",Times,serif;
+	letter-spacing: 0.01rem;
+	font-weight: 400;
+	font-style: italic;
+	border-left: 3px solid #57ad68;
+	padding-left: 20px;
+	margin-left: -23px;
+	padding-bottom: 3px;
+}
+.attributedTo {
+	font-family: "freight-text-pro",Georgia,Cambria,"Times New Roman",Times,serif;
+	letter-spacing: 0.01rem;
+	font-weight: 400;
+	border-left: 3px solid #57ad68;
+	padding-left: 20px;
+	margin-left: -23px;
+	padding-bottom: 3px;
+}
+
+
 .btn-group-vertical {
 	display: block; 
 }
