@@ -17,7 +17,7 @@ var blogEngine = {
 		}).done(function(data, status, jqXHR) {
 			blogEngine.content.blogPosts = data;
 			$('#' + conf.eventhandler).trigger('BlogListGot');
-			blogEngine.getBlogPost(data[0].date + '.json');
+			blogEngine.getBlogPost(data[0].date);
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			$('#' + conf.eventhandler).trigger('BlogEngineError');
 		});
@@ -25,7 +25,7 @@ var blogEngine = {
 
 	getBlogPost: function(blog_id) {
 		$.ajax({
-			url: conf.blogserver + '/' + blog_id,
+			url: conf.blogserver + '/entries/' + blog_id,
 			cache: false,
 			dataType: 'json'
 		}).done(function(data, status, jqXHR) {

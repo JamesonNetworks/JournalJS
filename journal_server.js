@@ -5,7 +5,8 @@ var express = require('express'),
 	uuid = require('node-uuid'),
 	adapter = require('./bin/' + conf.adapter),
 	engine = require('./bin/engine.js'),
-	logger = require('./bin/logging.js');
+	logger = require('./bin/logging.js'),
+	url = require('url');
 
 var router = express();
 
@@ -14,8 +15,8 @@ var entries = [];
 var list = [];
 
 router.all("/*", function(req, res, next) {
-	logger.log('Request URL: ' + req.url);
-	logger.log('Request Params: ' + JSON.stringify(req.params));
+	logger.log('Request URL: ' + req.url, 7);
+	logger.log('Request Params: ' + JSON.stringify(req.params), 7);
 
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, X-Requested-With, Content-Type, Content-Range, Content-Disposition");
@@ -35,22 +36,29 @@ router.all("/*", function(req, res, next) {
 	next();
 });
 
-// When javascript is enabled, we'll redirect to the nirodha site,
-// when its not enabled the default handler will render the content
-// of the entry in an unformatted manner
-router.use('/scriptEnabled', express.static(__dirname + '/client/deploy'));
+router.use('/js', express.static(__dirname + '/client/deploy/js'));
+router.use('/css', express.static(__dirname + '/client/deploy/css'));
 
 router.use('/entries', function(req, res) {
-	var entry = adapter.get_entry(req.params[1]);
-	if(typeof(entry) === 'undefined') {
-		logger.log('No entry found for ' + JSON.stringify(req.url));
-		res.send(404);
-	}
-	else {
-		logger.log('Writing entry to response...');
-		res.write(JSON.stringify(entry));
-		res.end();
-	}
+
+	logger.log('In handler for entries...');
+
+	var urlPath = url.parse(req.url).pathname;
+	// Remove the slash before the path
+	var entryId = urlPath.substring(1, urlPath.length);
+
+	var entry = adapter.get_entry(entryId, function(entry) {
+		logger.log('Entry: ' + entryId);
+		if(typeof(entry) === 'undefined' || entry === null) {
+			logger.log('No entry found for ' + JSON.stringify(entryId));
+			res.send(404);
+		}
+		else {
+			logger.log('Writing entry to response...');
+			res.write(JSON.stringify(entry));
+			res.end();
+		}
+	});
 });
 
 router.use('/list', function(req, res) {
@@ -58,7 +66,7 @@ router.use('/list', function(req, res) {
 		'Content-Type': 'text/html',
 		'cache-control':'no-cache'
 	});
-	logger.log('Serving entry list with the current list of ' + JSON.stringify(list));
+	logger.log('Serving entry list with the current list of ' + JSON.stringify(list), 7);
 	res.write(JSON.stringify(list));
 	res.end();
 });
@@ -71,20 +79,23 @@ router.use('/', function(req, res) {
 
 	logger.log('In handler for slash');
 
-	var entry = adapter.get_entry(req.params[0]);
-	debugger;
-	if(typeof(entry) === 'undefined') {
-
-		logger.log('No entry found for ' + JSON.stringify(req.url));
-
-		res.send(404);
-	}
-	else {
-		var renderedEntry = engine.render(entry);
-		logger.log('Writing entry to response...');
-		res.write(JSON.stringify(renderedEntry));
-		res.end();
-	}
+	adapter.get_entry(req.params[0], function(entry) {
+		if(typeof(entry) === 'undefined' || entry === null) {
+			logger.log('No entry found for ' + JSON.stringify(req.url));
+			res.send(404);
+		}
+		else {
+			logger.log('Writing entry to response...');
+			res.write(engine.render(entry));
+			res.end();
+		}
+	});
 });
+
+// When javascript is enabled, we'll redirect to the nirodha site,
+// when its not enabled the default handler will render the content
+// of the entry in an unformatted manner
+router.use('/scriptEnabled/*', express.static(__dirname + '/client/deploy'));
+router.use('/scriptEnabled', express.static(__dirname + '/client/deploy'));
 
 router.listen(conf.port);

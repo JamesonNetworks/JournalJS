@@ -62,7 +62,7 @@ function buildBlogPostHtml(post) {
 					break;
 				case 'picture':
 					var picture = {};
-					picture.url = conf.blogserver + '/' + post.date + '_' + content.id + '.' + content.fileType;
+					picture.url = conf.blogserver + '/scriptEnabled/' + post.date + '_' + content.id + '.' + content.fileType;
 					picture.alttext = content.altText;
 					finalHtml += Mustache.to_html(sectionContentPictureTemplate, picture);
 					break;
@@ -130,7 +130,7 @@ function blogEngineError() {
 }
 
 function blogEntryClick(event) {
-	blogEngine.getBlogPost(this.id + '.json');
+	blogEngine.getBlogPost(this.id);
 	$('#menuOnMobile').empty();
 }
 
