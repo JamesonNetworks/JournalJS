@@ -9,7 +9,7 @@ var blogEngine = {
 	},
 	EventHandler: conf.eventhandler,
 
-	populateBlogPosts: function() {
+	populateBlogPosts: function(key) {
 		$.ajax({
 			url: conf.blogserver + '/list',
 			cache: false,
@@ -17,7 +17,7 @@ var blogEngine = {
 		}).done(function(data, status, jqXHR) {
 			blogEngine.content.blogPosts = data;
 			$('#' + conf.eventhandler).trigger('BlogListGot');
-			blogEngine.getBlogPost(data[0].date);
+			blogEngine.getBlogPost(key === null ? data[0].date : key);
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			$('#' + conf.eventhandler).trigger('BlogEngineError');
 		});

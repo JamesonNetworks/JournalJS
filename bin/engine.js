@@ -12,7 +12,7 @@ function buildBareBonesPostHtml(post) {
     finalHtml = '';
 
     // TODO: Remove this markup, pull current markup from client
-    var template = '<script>window.location = "scriptEnabled/{{date}}";</script> \
+    var template = '<script>window.location = "scriptEnabled/client/index.html?entryId={{uri}}";</script> \
         <div class="post-article"> \
         <div class="post-title">{{title}}</div> \
         <div class="post-field"> \
@@ -45,7 +45,8 @@ function buildBareBonesPostHtml(post) {
     // Build a header object and start rendering the article
     headerObject = {};
     headerObject.title = post.title;
-    headerObject.subtitle = post.subtitle
+    headerObject.subtitle = post.subtitle;
+    headerObject.uri = post.uri;
 
     finalHtml = Mustache.to_html(template, headerObject);
 
@@ -70,7 +71,7 @@ function buildBareBonesPostHtml(post) {
                     break;
                 case 'picture':
                     var picture = {};
-                    picture.url = conf.blogserver + '/scriptEnabled/' + post.date + '_' + content.id + '.' + content.fileType;
+                    picture.url = conf.blogserver + '/entries/pictures/' + post.date + '_' + content.id + '.' + content.fileType;
                     picture.alttext = content.altText;
                     finalHtml += Mustache.to_html(sectionContentPictureTemplate, picture);
                     break;

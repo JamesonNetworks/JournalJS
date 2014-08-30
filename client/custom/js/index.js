@@ -1,3 +1,10 @@
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 function findBootstrapEnvironment() {
     var envs = ['xs', 'sm', 'md', 'lg'];
 
@@ -62,7 +69,7 @@ function buildBlogPostHtml(post) {
 					break;
 				case 'picture':
 					var picture = {};
-					picture.url = conf.blogserver + '/scriptEnabled/' + post.date + '_' + content.id + '.' + content.fileType;
+					picture.url = conf.blogserver + '/entries/pictures/' + post.date + '_' + content.id + '.' + content.fileType;
 					picture.alttext = content.altText;
 					finalHtml += Mustache.to_html(sectionContentPictureTemplate, picture);
 					break;
@@ -140,7 +147,8 @@ window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
 
 	$('#blog-entry').hide();
-	blogEngine.populateBlogPosts();
+	var key = getParameterByName('entryId');
+	blogEngine.populateBlogPosts(key);
 }
 
 $(document).ready(function() {	

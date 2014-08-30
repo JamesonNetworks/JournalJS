@@ -99,3 +99,7 @@ jsonFiles.prototype.get_entry = function(key, callback) {
 		});
 	}
 }
+
+jsonFiles.prototype.getPicturePath = function() {
+	return conf.picturePath;
+}

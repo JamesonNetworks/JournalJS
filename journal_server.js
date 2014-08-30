@@ -36,9 +36,8 @@ router.all("/*", function(req, res, next) {
 	next();
 });
 
-router.use('/js', express.static(__dirname + '/client/deploy/js'));
-router.use('/css', express.static(__dirname + '/client/deploy/css'));
-
+// Set up static path for pictures
+router.use('/entries/pictures', express.static(__dirname + adapter.getPicturePath()));
 router.use('/entries', function(req, res) {
 
 	logger.log('In handler for entries...');
@@ -47,7 +46,7 @@ router.use('/entries', function(req, res) {
 	// Remove the slash before the path
 	var entryId = urlPath.substring(1, urlPath.length);
 
-	var entry = adapter.get_entry(entryId, function(entry) {
+	var entry = adapter.get_entry(decodeURI(entryId), function(entry) {
 		logger.log('Entry: ' + entryId);
 		if(typeof(entry) === 'undefined' || entry === null) {
 			logger.log('No entry found for ' + JSON.stringify(entryId));
@@ -71,6 +70,13 @@ router.use('/list', function(req, res) {
 	res.end();
 });
 
+// When javascript is enabled, we'll redirect to the nirodha site,
+// when its not enabled the default handler will render the content
+// of the entry in an unformatted manner
+router.use('/js', express.static(__dirname + '/client/deploy/js'));
+router.use('/css', express.static(__dirname + '/client/deploy/css'));
+router.use('/scriptEnabled/client', express.static(__dirname + '/client/deploy'));
+
 // Static entry point, this will serve the static page rendered
 // with the latest entry and links to other entries. It will 
 // default with the noscript tag and rendered article, and then
@@ -79,23 +85,29 @@ router.use('/', function(req, res) {
 
 	logger.log('In handler for slash');
 
-	adapter.get_entry(req.params[0], function(entry) {
+	var urlPath = url.parse(req.url).pathname;
+	// Remove the slash before the path
+	var uri = urlPath.substring(1, urlPath.length);
+
+	console.log(decodeURI(req.params[0]));
+	adapter.get_entry(decodeURI(req.params[0]), function(entry) {
 		if(typeof(entry) === 'undefined' || entry === null) {
 			logger.log('No entry found for ' + JSON.stringify(req.url));
 			res.send(404);
 		}
 		else {
 			logger.log('Writing entry to response...');
+			entry.uri = decodeURI(uri);
 			res.write(engine.render(entry));
 			res.end();
 		}
 	});
 });
 
-// When javascript is enabled, we'll redirect to the nirodha site,
-// when its not enabled the default handler will render the content
-// of the entry in an unformatted manner
-router.use('/scriptEnabled/*', express.static(__dirname + '/client/deploy'));
-router.use('/scriptEnabled', express.static(__dirname + '/client/deploy'));
-
 router.listen(conf.port);
+
+// Check options to make sure things are inited properly
+
+if(typeof(adapter.getPicturePath) === 'undefined') {
+	logger.log('There is no picture path configured, pictures will not work.');
+}

@@ -1,5 +1,8 @@
 {
 	"port": "10080",
 	"entries":"/entries",
-	"adapter": "jsonFiles"
+	"picturePath":"/entries",
+	"adapter": "jsonFiles",
+	"valuesToFetchEntriesBy": [ "title", "date"],
+	"log_level" : 6
 }
