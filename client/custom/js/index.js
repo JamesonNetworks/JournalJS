@@ -1,3 +1,10 @@
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
 function findBootstrapEnvironment() {
     var envs = ['xs', 'sm', 'md', 'lg'];
 
@@ -10,7 +17,7 @@ function findBootstrapEnvironment() {
         $el.addClass('hidden-'+env);
         if ($el.is(':hidden')) {
             $el.remove();
-            return env
+            return env;
         }
     };
 }
@@ -62,7 +69,7 @@ function buildBlogPostHtml(post) {
 					break;
 				case 'picture':
 					var picture = {};
-					picture.url = conf.blogserver + '/' + post.date + '_' + content.id + '.' + content.fileType;
+					picture.url = conf.blogserver + '/entries/pictures/' + post.date + '_' + content.id + '.' + content.fileType;
 					picture.alttext = content.altText;
 					finalHtml += Mustache.to_html(sectionContentPictureTemplate, picture);
 					break;
@@ -76,6 +83,7 @@ function buildBlogPostHtml(post) {
 
 function blogPostGot() {
 	var template = $('#blog-entry-template').html();
+	window.document.title = blogEngine.content.currentBlogPost.title;
 	var html = buildBlogPostHtml(blogEngine.content.currentBlogPost);
 
 	$('#blog-entry').fadeOut(function() {
@@ -130,7 +138,7 @@ function blogEngineError() {
 }
 
 function blogEntryClick(event) {
-	blogEngine.getBlogPost(this.id + '.json');
+	blogEngine.getBlogPost(this.id);
 	$('#menuOnMobile').empty();
 }
 
@@ -140,7 +148,8 @@ window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
 
 	$('#blog-entry').hide();
-	blogEngine.populateBlogPosts();
+	var key = getParameterByName('entryId');
+	blogEngine.populateBlogPosts(key);
 }
 
 $(document).ready(function() {	

@@ -1,5 +1,0 @@
-{
-	"port": "10080",
-	"entries":"/entries",
-	"adapter": "jsonFiles"
-}
