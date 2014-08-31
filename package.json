@@ -1,12 +1,12 @@
 {
   "name": "JournalJS",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Yet another blogging platform",
   "homepage": "http://www.jamesonnetworks.com",
   "author": "Brent Jameson <brent@jamesonnetworks.com>",
   "dependencies": {
     "express": "4.8.x",
-    "pg": "2.7.x",
+    "pg": "3.4.x",
     "node-uuid": "1.4.x",
     "mustache": "0.8.x",
     "colors": "0.6.x",
