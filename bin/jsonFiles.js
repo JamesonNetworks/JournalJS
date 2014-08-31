@@ -1,6 +1,6 @@
 var conf = require('../conf.json'),
 	fs = require('fs'),
-	logger = require('./logging.js'),
+	logger = require('jslogging'),
 	blogEntries = [];
 
 exports = module.exports = new jsonFiles();

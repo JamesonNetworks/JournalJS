@@ -1,5 +1,5 @@
 var conf = require('../conf.json'),
-    logger = require('./logging.js'),
+    logger = require('jslogging'),
     Mustache = require('mustache');
 
 exports = module.exports = new engine;

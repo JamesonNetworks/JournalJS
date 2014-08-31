@@ -5,7 +5,7 @@ var express = require('express'),
 	uuid = require('node-uuid'),
 	adapter = require('./bin/' + conf.adapter),
 	engine = require('./bin/engine.js'),
-	logger = require('./bin/logging.js'),
+	logger = require('jslogging'),
 	url = require('url'),
 	favicon = require('serve-favicon');
 
@@ -14,6 +14,8 @@ var router = express();
 var current_posts_count = 0;
 var entries = [];
 var list = [];
+
+logger.setLogLevel(conf.log_level);
 
 router.all("/*", function(req, res, next) {
 	logger.log('Request URL: ' + req.url, 7);
