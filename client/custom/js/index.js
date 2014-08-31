@@ -17,7 +17,7 @@ function findBootstrapEnvironment() {
         $el.addClass('hidden-'+env);
         if ($el.is(':hidden')) {
             $el.remove();
-            return env
+            return env;
         }
     };
 }
@@ -83,6 +83,7 @@ function buildBlogPostHtml(post) {
 
 function blogPostGot() {
 	var template = $('#blog-entry-template').html();
+	window.document.title = blogEngine.content.currentBlogPost.title;
 	var html = buildBlogPostHtml(blogEngine.content.currentBlogPost);
 
 	$('#blog-entry').fadeOut(function() {

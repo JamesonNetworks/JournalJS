@@ -76,6 +76,8 @@ jsonFiles.prototype.get_entry = function(key, callback) {
 
 	var entries = allEntries;
 
+	debugger;
+
 	if(typeof(key) === 'undefined' || key === '') {
 		logger.log('Key was null or empty');
 		logger.log('Raw entry: ' + allEntries[0], 7);

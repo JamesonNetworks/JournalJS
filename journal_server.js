@@ -6,7 +6,8 @@ var express = require('express'),
 	adapter = require('./bin/' + conf.adapter),
 	engine = require('./bin/engine.js'),
 	logger = require('./bin/logging.js'),
-	url = require('url');
+	url = require('url'),
+	favicon = require('serve-favicon');
 
 var router = express();
 
@@ -50,7 +51,7 @@ router.use('/entries', function(req, res) {
 		logger.log('Entry: ' + entryId);
 		if(typeof(entry) === 'undefined' || entry === null) {
 			logger.log('No entry found for ' + JSON.stringify(entryId));
-			res.send(404);
+			res.status(404).end();
 		}
 		else {
 			logger.log('Writing entry to response...');
@@ -77,6 +78,9 @@ router.use('/js', express.static(__dirname + '/client/deploy/js'));
 router.use('/css', express.static(__dirname + '/client/deploy/css'));
 router.use('/scriptEnabled/client', express.static(__dirname + '/client/deploy'));
 
+// Serve the favicon
+router.use(favicon(__dirname + '/favicon.ico'));
+
 // Static entry point, this will serve the static page rendered
 // with the latest entry and links to other entries. It will 
 // default with the noscript tag and rendered article, and then
@@ -85,15 +89,17 @@ router.use('/', function(req, res) {
 
 	logger.log('In handler for slash');
 
+	debugger;
+
 	var urlPath = url.parse(req.url).pathname;
 	// Remove the slash before the path
 	var uri = urlPath.substring(1, urlPath.length);
 
-	console.log(decodeURI(req.params[0]));
-	adapter.get_entry(decodeURI(req.params[0]), function(entry) {
+	//console.log(decodeURI(req.params[0]));
+	adapter.get_entry(decodeURI(req.url.split('/')[1]), function(entry) {
 		if(typeof(entry) === 'undefined' || entry === null) {
 			logger.log('No entry found for ' + JSON.stringify(req.url));
-			res.send(404);
+			res.status(404).end();
 		}
 		else {
 			logger.log('Writing entry to response...');
