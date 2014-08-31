@@ -86,10 +86,7 @@ router.use(favicon(__dirname + '/favicon.ico'));
 // default with the noscript tag and rendered article, and then
 // redirect to the rich content site if javascript is enabled
 router.use('/', function(req, res) {
-
 	logger.log('In handler for slash');
-
-	debugger;
 
 	var urlPath = url.parse(req.url).pathname;
 	// Remove the slash before the path

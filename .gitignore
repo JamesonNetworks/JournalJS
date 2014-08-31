@@ -4,3 +4,4 @@ node_modules/
 server/entries/
 conf.js
 conf.json
+nohup.out
