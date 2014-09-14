@@ -81,8 +81,15 @@ function buildBlogPostHtml(post) {
 	return finalHtml;
 }
 
+function buildAboutMe() {
+
+}
+
+function buildResume() {
+
+}
+
 function blogPostGot() {
-	var template = $('#blog-entry-template').html();
 	window.document.title = blogEngine.content.currentBlogPost.title;
 	var html = buildBlogPostHtml(blogEngine.content.currentBlogPost);
 
@@ -97,6 +104,43 @@ function blogPostGot() {
 		$('.window').fadeOut(function() {
 			$('#mask').fadeOut();
 			$('#modalContainer').trigger('hideModal', {});
+		});
+	});
+}
+
+function resumeGot() {
+	window.document.title = 'Resume';
+	var html = buildResume(blogEngine.resume);
+
+	$('#blog-entry').fadeOut(function() {
+		$('#blog-entry').empty();
+		$('#blog-entry').append(html);
+		prettyPrint();
+		$('.post-content').linkify();
+		$('.article-link').removeClass('active');
+
+		$('#blog-entry').fadeIn();
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();
+			//$('#modalContainer').trigger('hideModal', {});
+		});
+	});
+}
+
+function aboutMeGot() {
+	window.document.title = 'About Me';
+	var html = buildAboutMe(blogEngine.aboutme);
+
+	$('#blog-entry').fadeOut(function() {
+		$('#blog-entry').empty();
+		$('#blog-entry').append(html);
+		prettyPrint();
+		$('.article-link').removeClass('active');
+
+		$('#blog-entry').fadeIn();
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();
+			//$('#modalContainer').trigger('hideModal', {});
 		});
 	});
 }
@@ -142,10 +186,21 @@ function blogEntryClick(event) {
 	$('#menuOnMobile').empty();
 }
 
+function aboutMeClick(event) {
+	blogEngine.getAboutMe();
+}
+
+function resumeClick(event) {
+	//blogEngine.getResume();
+	window.location.replace('/resume');
+}
+
 window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogListGot', blogListGot);
 	$('#' + blogEngine.EventHandler).on('BlogPostGot', blogPostGot);
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
+	$('#' + blogEngine.EventHandler).on('AboutMeGot', aboutMeGot);
+	$('#' + blogEngine.EventHandler).on('ResumeGot', resumeGot);
 
 	$('#blog-entry').hide();
 	var key = getParameterByName('entryId');
@@ -200,14 +255,6 @@ function showArticlesModal(event) {
 	}
 }
 
-function showAbout(event) {
-
-}
-
- function showResume(event) {
-
-}
-
 $(document).ready(function() {	
 
 	// Attaching to the displaying of modal to block scrolling
@@ -220,8 +267,8 @@ $(document).ready(function() {
 	// Wire up buttons
 	$('#articles').click(showArticlesModal);
 	$('#articles2').click(showArticlesModal);
-	$('#about').click(showAbout);
-	$('#resume').click(showResume);
+	$('#about').click(aboutMeClick);
+	$('#resume').click(resumeClick);
 
 	//if close button is clicked
 	$('.window .close').click(function (e) {

@@ -76,8 +76,6 @@ jsonFiles.prototype.get_entry = function(key, callback) {
 
 	var entries = allEntries;
 
-	debugger;
-
 	if(typeof(key) === 'undefined' || key === '') {
 		logger.log('Key was null or empty');
 		logger.log('Raw entry: ' + allEntries[0], 7);
@@ -104,4 +102,10 @@ jsonFiles.prototype.get_entry = function(key, callback) {
 
 jsonFiles.prototype.getPicturePath = function() {
 	return conf.picturePath;
+}
+
+jsonFiles.prototype.getResume = function(callback) {
+	resume = JSON.parse(fs.readFileSync('./personal_info/resume.json', 'utf8'));
+	logger.debug(JSON.stringify(resume));
+	callback(resume);
 }

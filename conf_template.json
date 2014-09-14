@@ -4,5 +4,6 @@
 	"picturePath":"/entries",
 	"adapter": "jsonFiles",
 	"valuesToFetchEntriesBy": [ "title", "date"],
-	"log_level" : 6
+	"log_level" : 6,
+	"email": "your@email.address"
 }

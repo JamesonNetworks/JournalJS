@@ -7,7 +7,8 @@ var express = require('express'),
 	engine = require('./bin/engine.js'),
 	logger = require('jslogging'),
 	url = require('url'),
-	favicon = require('serve-favicon');
+	favicon = require('serve-favicon'),
+	theme = require('jsonresume-theme-elegant');
 
 var router = express();
 
@@ -58,6 +59,28 @@ router.use('/entries', function(req, res) {
 		else {
 			logger.log('Writing entry to response...');
 			res.write(JSON.stringify(entry));
+			res.end();
+		}
+	});
+});
+
+router.use('/resume', function(req, res) {
+
+	logger.log('In handler for resume...');
+
+	var urlPath = url.parse(req.url).pathname;
+	// Remove the slash before the path
+	var entryId = urlPath.substring(1, urlPath.length);
+
+	var resume = adapter.getResume(function(resume) {
+		logger.log('Serving resume...');
+		if(typeof(resume) === 'undefined' || resume === null) {
+			logger.log('Resume is not present');
+			res.status(404).end();
+		}
+		else {
+			logger.log('Writing entry to response...');
+			res.write(theme.render(resume));
 			res.end();
 		}
 	});

@@ -34,5 +34,31 @@ var blogEngine = {
 		}).fail(function(jqXHR, textStatus, errorThrown) {
 			$('#' + conf.eventhandler).trigger('BlogEngineError');
 		});
+	},
+
+	getAboutMe: function() {
+		$.ajax({
+			url: conf.blogserver + '/about',
+			cache: false,
+			dataType: 'json'
+		}).done(function(data, status, jqXHR) {
+			blogEngine.aboutme = data;
+			$('#' + conf.eventhandler).trigger('AboutMeGot');
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			$('#' + conf.eventhandler).trigger('BlogEngineError');
+		});
+	},
+
+	getResume: function() {
+		$.ajax({
+			url: conf.blogserver + '/resume',
+			cache: false,
+			dataType: 'json'
+		}).done(function(data, status, jqXHR) {
+			blogEngine.resumeMarkUp = data;
+			$('#' + conf.eventhandler).trigger('ResumeGot');
+		}).fail(function(jqXHR, textStatus, errorThrown) {
+			$('#' + conf.eventhandler).trigger('BlogEngineError');
+		});
 	}
 }

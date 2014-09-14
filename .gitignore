@@ -5,3 +5,5 @@ server/entries/
 conf.js
 conf.json
 nohup.out
+personal_info/about.json
+personal_info/resume.json

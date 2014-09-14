@@ -12,7 +12,7 @@
     "colors": "0.6.x",
     "serve-favicon": "2.1.x",
     "jslogging": "0.1.x",
-    "nirodha": "1.x.x"
+    "jsonresume-theme-elegant": "0.1.x"
   },
   "devDependencies": {
     "mocha": "1.17.x",
