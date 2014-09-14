@@ -8,7 +8,7 @@ var express = require('express'),
 	logger = require('jslogging'),
 	url = require('url'),
 	favicon = require('serve-favicon'),
-	theme = require('jsonresume-theme-elegant');
+	theme = require(conf.resumeTheme);
 
 var router = express();
 
