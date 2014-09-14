@@ -1,6 +1,6 @@
 {
   "name": "JournalJS",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yet another blogging platform",
   "homepage": "http://www.jamesonnetworks.com",
   "author": "Brent Jameson <brent@jamesonnetworks.com>",
@@ -11,7 +11,8 @@
     "mustache": "0.8.x",
     "colors": "0.6.x",
     "serve-favicon": "2.1.x",
-    "jslogging": "0.1.x"
+    "jslogging": "0.1.x",
+    "nirodha": "1.x.x"
   },
   "devDependencies": {
     "mocha": "1.17.x",

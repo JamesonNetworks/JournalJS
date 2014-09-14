@@ -152,6 +152,62 @@ window.onload = function() {
 	blogEngine.populateBlogPosts(key);
 }
 
+function showArticlesModal(event) {
+	//Cancel the link behavior
+	event.preventDefault();
+	
+	var env = findBootstrapEnvironment();
+
+	switch(env) {
+		case 'lg':
+		case 'md':
+			var id = '#dialog';
+		
+			//Get the screen height and width
+			var maskHeight = $(document).height();
+			var maskWidth = $(window).width();
+		
+			//Set heigth and width to mask to fill up the whole screen
+			$('#mask').css({'width':maskWidth,'height':maskHeight});
+			
+			//transition effect		
+			$('#mask').fadeIn(1000);	
+			$('#mask').fadeTo("slow",0.8);	
+		
+			//Get the window height and width
+			var winH = $(window).height();
+			var winW = $(window).width();
+	              
+			//Set the popup window to center
+			$(id).css('top',  winH/2-$(id).height()/2);
+			$(id).css('left', winW/2-$(id).width()/2);
+		
+			//transition effect
+			$(id).fadeIn(2000); 
+			$('#modalContainer').trigger('showModal', {});
+			break;
+		case 'sm':
+		case 'xs':
+			var menuCopy = $('#menuEntryList').clone();
+			$('#blog-entry').fadeOut(function() {
+				var menuCopy = $('#menuEntryList').clone();
+				$('#menuOnMobile').append(menuCopy);
+				$('.article-link').click(blogEntryClick);
+			});
+			break;
+		default:
+		break;
+	}
+}
+
+function showAbout(event) {
+
+}
+
+ function showResume(event) {
+
+}
+
 $(document).ready(function() {	
 
 	// Attaching to the displaying of modal to block scrolling
@@ -161,55 +217,12 @@ $(document).ready(function() {
 		$('body').removeClass('modal-open');
 	});
 
-	//select all the a tag with name equal to modal
-	$('.menuButton').click(function(e) {
-		//Cancel the link behavior
-		e.preventDefault();
-		
-		var env = findBootstrapEnvironment();
+	// Wire up buttons
+	$('#articles').click(showArticlesModal);
+	$('#articles2').click(showArticlesModal);
+	$('#about').click(showAbout);
+	$('#resume').click(showResume);
 
-		switch(env) {
-			case 'lg':
-			case 'md':
-				var id = '#dialog';
-			
-				//Get the screen height and width
-				var maskHeight = $(document).height();
-				var maskWidth = $(window).width();
-			
-				//Set heigth and width to mask to fill up the whole screen
-				$('#mask').css({'width':maskWidth,'height':maskHeight});
-				
-				//transition effect		
-				$('#mask').fadeIn(1000);	
-				$('#mask').fadeTo("slow",0.8);	
-			
-				//Get the window height and width
-				var winH = $(window).height();
-				var winW = $(window).width();
-		              
-				//Set the popup window to center
-				$(id).css('top',  winH/2-$(id).height()/2);
-				$(id).css('left', winW/2-$(id).width()/2);
-			
-				//transition effect
-				$(id).fadeIn(2000); 
-				$('#modalContainer').trigger('showModal', {});
-				break;
-			case 'sm':
-			case 'xs':
-				var menuCopy = $('#menuEntryList').clone();
-				$('#blog-entry').fadeOut(function() {
-					var menuCopy = $('#menuEntryList').clone();
-					$('#menuOnMobile').append(menuCopy);
-					$('.article-link').click(blogEntryClick);
-				});
-				break;
-			default:
-			break;
-		}
-	});
-	
 	//if close button is clicked
 	$('.window .close').click(function (e) {
 		//Cancel the link behavior
