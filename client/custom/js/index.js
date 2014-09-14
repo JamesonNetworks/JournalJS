@@ -192,7 +192,7 @@ function aboutMeClick(event) {
 
 function resumeClick(event) {
 	//blogEngine.getResume();
-	window.location.replace('/resume');
+	window.location.href('/resume');
 }
 
 window.onload = function() {
