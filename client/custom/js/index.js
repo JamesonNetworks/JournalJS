@@ -90,6 +90,8 @@ function buildResume() {
 }
 
 function blogPostGot() {
+	ga('send', 'pageview');	
+
 	window.document.title = blogEngine.content.currentBlogPost.title;
 	var html = buildBlogPostHtml(blogEngine.content.currentBlogPost);
 
@@ -109,6 +111,7 @@ function blogPostGot() {
 }
 
 function resumeGot() {
+	ga('send', 'pageview');	
 	window.document.title = 'Resume';
 	var html = buildResume(blogEngine.resume);
 
@@ -255,6 +258,11 @@ function showArticlesModal(event) {
 	}
 }
 
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
 $(document).ready(function() {	
 
 	// Attaching to the displaying of modal to block scrolling
@@ -269,6 +277,8 @@ $(document).ready(function() {
 	$('#articles2').click(showArticlesModal);
 	$('#about').click(aboutMeClick);
 	$('#resume').click(resumeClick);
+	
+	$('.body').append(resumeClick);
 
 	//if close button is clicked
 	$('.window .close').click(function (e) {
@@ -310,6 +320,8 @@ $(document).ready(function() {
         box.css('left', winW/2 - box.width()/2);
 	 
 	});
-	
+
+	ga('create', conf.trackingCode, 'auto');
+	ga('send', 'pageview');	
 });
 

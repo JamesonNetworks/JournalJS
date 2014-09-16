@@ -6,5 +6,6 @@
 	"valuesToFetchEntriesBy": [ "title", "date"],
 	"log_level" : 6,
 	"email": "your(at)email.address",
-	"resumeTheme": "jsonresume-theme-modern"
+	"resumeTheme": "jsonresume-theme-modern",
+	"trackingCode": "YOUR_GOOGLE_ANALYTICS_CODE"
 }
