@@ -80,6 +80,10 @@ function buildBareBonesPostHtml(post) {
         }
     }
 
+    // template = menuLinksTemplate;
+    // var html = Mustache.to_html(template, blogEngine.content);
+    // $('#modalContainer').append(html);
+
     return finalHtml;
 }
 

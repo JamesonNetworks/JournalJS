@@ -57,8 +57,23 @@
 <div id="dialog" class="window">
 	<ul id="menuEntryList" class="nav nav-pills nav-stacked">
 		{{#blogPosts}}
-		<li id="{{date}}" class="article-link "><a href="#">{{title}}</a></li>
+		<li id="{{date}}" class="{{date}} article-link "><a href="#">{{title}}</a></li>
 		{{/blogPosts}}
 	</ul>
 </div>
+</script>
+
+<script type="text/html" id="sidebar-template">
+	{{#months}}
+		<h6 class="date-text">{{id}}</h6>
+		<ul class="nav nav-pills nav-stacked">
+			{{#articles}}
+			<li id="{{date}}" class="{{date}} sidebar-article-link"><a href="#">{{title}}</a></li>			
+			{{/articles}}
+		</ul>
+	{{/months}}
+</script>
+
+<script type="text/html" id="brand-template">
+	<a class="navbar-brand" href="#">{{brandName}}</a>
 </script>

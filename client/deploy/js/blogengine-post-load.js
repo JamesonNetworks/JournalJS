@@ -22,6 +22,7 @@ function findBootstrapEnvironment() {
     };
 }
 
+
 function blogListGot() {
 	var template = $('#menu-template').html(); 
 	var html = Mustache.to_html(template, blogEngine.content);
@@ -30,7 +31,7 @@ function blogListGot() {
 	template = $('#sidebar-template').html();
 	html = Mustache.to_html(template, blogEngine.getContentForMenu());
 	$('#sidebar').append(html);
-	$('#sidebar').height($(window).height);
+
 	$('.article-link').click(blogEntryClick);
 	$('.sidebar-article-link').click(blogEntryClick);
 }
@@ -105,8 +106,7 @@ function blogPostGot() {
 		prettyPrint();
 		$('.post-content').linkify();
 		$('.article-link').removeClass('active');
-		$('.sidebar-article-link').removeClass('active');
-		$('.' + blogEngine.content.currentBlogPost.date).addClass('active');
+		$('#' + blogEngine.content.currentBlogPost.date).addClass('active');
 		$('#blog-entry').fadeIn();
 		$('.window').fadeOut(function() {
 			$('#mask').fadeOut();
@@ -114,6 +114,7 @@ function blogPostGot() {
 		});
 	});
 }
+
 
 function resumeGot() {
 	ga('send', 'pageview');	
@@ -125,6 +126,24 @@ function resumeGot() {
 		$('#blog-entry').append(html);
 		prettyPrint();
 		$('.post-content').linkify();
+		$('.article-link').removeClass('active');
+
+		$('#blog-entry').fadeIn();
+		$('.window').fadeOut(function() {
+			$('#mask').fadeOut();
+			//$('#modalContainer').trigger('hideModal', {});
+		});
+	});
+}
+
+function aboutMeGot() {
+	window.document.title = 'About Me';
+	var html = buildAboutMe(blogEngine.aboutme);
+
+	$('#blog-entry').fadeOut(function() {
+		$('#blog-entry').empty();
+		$('#blog-entry').append(html);
+		prettyPrint();
 		$('.article-link').removeClass('active');
 
 		$('#blog-entry').fadeIn();
@@ -189,6 +208,7 @@ window.onload = function() {
 	$('#' + blogEngine.EventHandler).on('BlogListGot', blogListGot);
 	$('#' + blogEngine.EventHandler).on('BlogPostGot', blogPostGot);
 	$('#' + blogEngine.EventHandler).on('BlogEngineError', blogEngineError);
+	$('#' + blogEngine.EventHandler).on('AboutMeGot', aboutMeGot);
 	$('#' + blogEngine.EventHandler).on('ResumeGot', resumeGot);
 
 	$('#blog-entry').hide();
@@ -245,9 +265,6 @@ function showArticlesModal(event) {
 }
 
 $(document).ready(function() {	
-	var template = $('#brand-template').html();
-	var html = Mustache.to_html(template, conf);
-	$('#brandLocation').append(html);
 
 	// Attaching to the displaying of modal to block scrolling
 	$('#modalContainer').on('showModal', function () {
@@ -307,4 +324,5 @@ $(document).ready(function() {
 
 
 });
+
 

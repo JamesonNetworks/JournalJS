@@ -1,4 +1,5 @@
 var conf = {
 	"blogserver": "http://localhost:10080",
-	"eventhandler" : "blogEventHandler"
+	"eventhandler" : "blogEventHandler",
+    "brandName": "JamesonNetworks Blog"
 }
